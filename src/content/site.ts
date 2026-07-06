@@ -254,8 +254,8 @@ export const siteContent = {
         { label: "Friend Americans", href: "/careers#developer-success" },
       ],
       social: [
-        { label: "LinkedIn", href: "https://linkedin.com" },
-        { label: "GitHub", href: "https://github.com" },
+        { label: "LinkedIn", href: "http://www.linkedin.com/company/meridian-partners", icon: "linkedin" },
+        { label: "Twitter", href: "http://www.twitter.com/Meridian_ERP", icon: "twitter" },
       ],
       legal: [
         { label: "Privacy Policy", href: "/privacy" },

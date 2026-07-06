@@ -15,15 +15,17 @@ export const softwareRoles = [
 export const careerPaths = {
   software: {
     title: "Foreign Developers",
-    subtitle: "Experienced engineers from around the world who work directly with U.S. companies.",
+    subtitle: "Build software for U.S. companies with a support team behind you.",
     description:
-      "Join a team backed by Friend Americans - U.S. citizens who handle information, environments, payments, and coordination so you can focus on building software.",
+      "Work on meaningful projects while Friend Americans handle information, environments, payments, and day-to-day coordination — so you stay focused on code.",
+    highlights: ["Remote · U.S. time zones", "Backed by Friend Americans", "Full engineering focus"],
   },
   developerSuccess: {
     title: "Friend Americans",
-    subtitle: "Any U.S. citizen can join. Help foreign developers succeed inside American companies.",
+    subtitle: "Any U.S. citizen can join. No technical background required.",
     description:
-      "As a Friend American on our Developer Success Team, you provide information, set up work environments, coordinate payments, and handle day-to-day operations. No technical background required - but commitment, patience, and a strong work ethic are essential.",
+      "Support foreign developers with information, work setup, payments, and coordination. We look for commitment, patience, and a strong work ethic — training is provided.",
+    highlights: ["Any U.S. citizen welcome", "Commitment & patience", "No coding required"],
     supportAreas: [
       "Project information & documentation",
       "Work environment & tool setup",

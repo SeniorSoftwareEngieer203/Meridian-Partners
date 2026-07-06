@@ -23,30 +23,20 @@ export function FriendAmericansStories() {
           {stories.map((story) => (
             <StaggerItem key={story.id}>
               <Surface padding className="flex h-full flex-col">
-                <div className="flex items-start gap-4">
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl ring-2 ring-brand-100 dark:ring-brand-900">
-                    <Image
-                      src={story.image}
-                      alt={story.name}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-semibold">{story.name}</h3>
-                    <p className="text-sm text-brand-600">{story.role}</p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">
-                      {story.location} · {story.tenure}
-                    </p>
-                  </div>
-                  <Quote className="h-5 w-5 shrink-0 text-brand-200 dark:text-brand-800" aria-hidden="true" />
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-2 ring-brand-100 dark:ring-brand-900">
+                  <Image
+                    src={story.image}
+                    alt=""
+                    fill
+                    className="object-cover object-center"
+                    sizes="56px"
+                  />
                 </div>
 
-                <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-muted-foreground">
+                <Quote className="mb-2 mt-5 h-5 w-5 text-brand-300" aria-hidden="true" />
+                <blockquote className="flex-1 text-sm leading-relaxed text-muted-foreground">
                   &ldquo;{story.quote}&rdquo;
                 </blockquote>
-
                 <Badge variant="brand" className="mt-5 w-fit">
                   {story.highlight}
                 </Badge>

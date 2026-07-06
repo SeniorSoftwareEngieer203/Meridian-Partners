@@ -15,7 +15,7 @@ export function OrganizationJsonLd() {
       contactType: "sales",
       areaServed: "US",
     },
-    sameAs: [],
+    sameAs: siteContent.navigation.footer.social.map((item) => item.href),
   };
 
   return (

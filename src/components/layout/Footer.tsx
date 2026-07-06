@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { siteContent } from "@/content/site";
+import { LinkedInIcon, TwitterIcon } from "@/components/ui/SocialIcons";
 import { LogoLink } from "./Logo";
 import { Container } from "@/components/ui/Container";
+
+const socialIcons = {
+  linkedin: LinkedInIcon,
+  twitter: TwitterIcon,
+} as const;
 
 export function Footer() {
   const { footer } = siteContent.navigation;
@@ -15,18 +21,23 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
               {siteContent.company.mission}
             </p>
-            <div className="mt-6 flex gap-5">
-              {footer.social.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-white/50 transition-colors hover:text-white"
-                >
-                  {item.label}
-                </a>
-              ))}
+            <div className="mt-6 flex gap-3">
+              {footer.social.map((item) => {
+                const Icon = socialIcons[item.icon as keyof typeof socialIcons];
+                if (!Icon) return null;
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/60 transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white"
+                  >
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 

@@ -1,8 +1,10 @@
+import Image from "next/image";
 import {
   Code2, Flag, ArrowRight, MapPin, Clock, Check, X,
 } from "lucide-react";
 import { createMetadata } from "@/lib/metadata";
 import { careerRoles, careerPaths, softwareRoles } from "@/content/careers";
+import { siteImages } from "@/content/images";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Surface } from "@/components/ui/Surface";
@@ -19,31 +21,80 @@ export const metadata = createMetadata({
   path: "/careers",
 });
 
+const careerPathImages = [siteImages.careersDevelopers, siteImages.careersFriendAmerican];
+const careerPathIcons = [Code2, Flag];
+
 export default function CareersPage() {
   const softwareJobs = careerRoles.filter((r) => r.category === "software");
   const successJobs = careerRoles.filter((r) => r.category === "developer-success");
   const { software, developerSuccess } = careerPaths;
+  const paths = [software, developerSuccess];
 
   return (
     <>
       <PageHero
         title="Build Your Career"
         subtitle="Foreign developers build. Friend Americans support. Together we help American companies deliver outstanding software."
+        image={siteImages.careersDevelopers}
+        imageAlt="Foreign developers team at Meridian Partners"
       />
 
       <section className="section">
         <Container>
-          <div className="grid gap-4 lg:grid-cols-2">
-            {[software, developerSuccess].map((path, i) => (
-              <Surface key={path.title} padding>
-                {i === 0 ? <Code2 className="h-8 w-8 text-brand-600" /> : <Flag className="h-8 w-8 text-brand-600" />}
-                <h2 className="mt-4 text-xl font-bold">{path.title}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">{path.description}</p>
-                <Button href={i === 0 ? "#software-professionals" : "#developer-success"} variant="outline" size="sm" className="mt-6">
-                  View Roles <ArrowRight className="h-3.5 w-3.5" />
-                </Button>
-              </Surface>
-            ))}
+          <div className="mx-auto grid max-w-4xl gap-8">
+            {paths.map((path, i) => {
+              const Icon = careerPathIcons[i];
+              return (
+                <Surface key={path.title} hover={false} className="overflow-hidden p-0">
+                  <div className="relative aspect-[21/9] min-h-[200px] w-full overflow-hidden sm:aspect-[2.4/1]">
+                    <Image
+                      src={careerPathImages[i]}
+                      alt={path.title}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 896px) 100vw, 896px"
+                      priority={i === 0}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white backdrop-blur-sm">
+                          <Icon className="h-5 w-5" aria-hidden="true" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white sm:text-3xl">{path.title}</h2>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border bg-card p-6 sm:p-8">
+                    <p className="text-base font-medium text-foreground">{path.subtitle}</p>
+                    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                      {path.description}
+                    </p>
+                    {"highlights" in path && path.highlights && (
+                      <ul className="mt-5 flex flex-wrap gap-2">
+                        {path.highlights.map((item) => (
+                          <li
+                            key={item}
+                            className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <Button
+                      href={i === 0 ? "#software-professionals" : "#developer-success"}
+                      variant="outline"
+                      size="sm"
+                      className="mt-6"
+                    >
+                      View Roles <ArrowRight className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                </Surface>
+              );
+            })}
           </div>
         </Container>
       </section>
