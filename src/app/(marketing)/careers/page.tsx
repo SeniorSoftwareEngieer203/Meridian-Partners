@@ -35,7 +35,7 @@ export default function CareersPage() {
       <PageHero
         title="Build Your Career"
         subtitle="Foreign developers build. Friend Americans support. Together we help American companies deliver outstanding software."
-        image={siteImages.careersDevelopers}
+        image={siteImages.careerimage}
         imageAlt="Foreign developers team at Meridian Partners"
       />
 

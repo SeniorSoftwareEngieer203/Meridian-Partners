@@ -14,9 +14,10 @@ export const siteImages = {
   aboutTeam:
     "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=900&h=650&fit=crop&crop=center&auto=format&q=80",
   /** Careers — foreign developers team */
-  careersDevelopers: "/images/careers/developers.jpg",
+  careersDevelopers: "/images/careers/developers.png",
+  careerimage:"/images/careers/career-image.png",
   /** Careers — Friend Americans team */
-  careersFriendAmerican: "/images/careers/friend-americans.jpg",
+  careersFriendAmerican: "/images/careers/friend-americans.png",
   /** Meridian infographic — software pros + support team model */
   howWeWork: "/how-we-work.png",
 
