@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meridian Partners - Company Website & Platform
+
+A production-ready, responsive SaaS-style website for a U.S.-focused software talent company. Built with Next.js App Router, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Marketing site** - Home, About, Services, Industries, Our Process, Careers, Blog, Contact
+- **Dark/light mode** - System-aware theme toggle
+- **Animations** - Framer Motion scroll animations with reduced-motion support
+- **SEO** - Metadata, Open Graph, sitemap, robots.txt
+- **Accessibility** - Skip links, ARIA labels, semantic HTML, focus states
+- **CMS-ready** - Content lives in `src/content/` for easy migration to a headless CMS
+- **Auth-ready** - Placeholder session/role helpers in `src/lib/auth.ts`
+- **Database schema** - Prisma models for users, candidates, clients, applications, messaging
+- **Portal scaffolding** - Admin, Client, and Candidate portal dashboards
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and configure:
 
-## Learn More
+```bash
+cp .env.example .env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Database Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Configure DATABASE_URL in .env.local, then:
+npm run db:generate
+npm run db:push
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── (marketing)/     # Public pages with header/footer
+│   ├── portal/          # Admin, client, candidate portals
+│   └── api/             # API routes
+├── components/
+│   ├── layout/          # Header, Footer, ThemeToggle
+│   ├── sections/        # Homepage sections
+│   ├── ui/              # Reusable UI components
+│   └── forms/           # Contact form
+├── content/             # CMS-ready content files
+├── lib/                 # Utils, metadata, auth placeholders
+└── types/               # TypeScript interfaces
+prisma/
+└── schema.prisma        # PostgreSQL schema
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Optimized for [Vercel](https://vercel.com). Set `NEXT_PUBLIC_SITE_URL` to your production domain.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- Prisma + PostgreSQL
+- next-themes
+
+## Next Steps
+
+1. Replace placeholder company name/branding
+2. Integrate NextAuth or Clerk for authentication
+3. Connect Prisma to PostgreSQL
+4. Wire contact form to API + database
+5. Add real blog content via CMS
+6. Build out portal features

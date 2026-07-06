@@ -1,0 +1,163 @@
+// PostgreSQL schema placeholders for future platform features
+// Run: npx prisma generate && npx prisma db push
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  CLIENT
+  CANDIDATE
+  SUPPORT
+}
+
+enum ApplicationStatus {
+  NEW
+  REVIEWING
+  INTERVIEWING
+  OFFERED
+  HIRED
+  REJECTED
+  WITHDRAWN
+}
+
+enum HiringRequestStatus {
+  OPEN
+  IN_PROGRESS
+  FILLED
+  CLOSED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  role          UserRole  @default(CANDIDATE)
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  candidateProfile CandidateProfile?
+  clientProfile    ClientProfile?
+  messagesSent     Message[]         @relation("SentMessages")
+  messagesReceived Message[]         @relation("ReceivedMessages")
+
+  @@map("users")
+}
+
+model CandidateProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String?
+  bio         String?
+  skills      String[]
+  experience  Int?
+  resumeUrl   String?
+  linkedinUrl String?
+  githubUrl   String?
+  available   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  applications Application[]
+
+  @@map("candidate_profiles")
+}
+
+model ClientProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String
+  industry    String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  hiringRequests HiringRequest[]
+
+  @@map("client_profiles")
+}
+
+model HiringRequest {
+  id          String              @id @default(cuid())
+  clientId    String
+  client      ClientProfile       @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  skills      String[]
+  budget      String?
+  duration    String?
+  status      HiringRequestStatus @default(OPEN)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  applications Application[]
+
+  @@map("hiring_requests")
+}
+
+model Application {
+  id              String            @id @default(cuid())
+  candidateId     String
+  candidate       CandidateProfile  @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  hiringRequestId String?
+  hiringRequest   HiringRequest?    @relation(fields: [hiringRequestId], references: [id])
+  positionTitle   String
+  status          ApplicationStatus @default(NEW)
+  coverLetter     String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@map("applications")
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  subject    String?
+  body       String
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@map("messages")
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  interest  String?
+  message   String
+  createdAt DateTime @default(now())
+
+  @@map("contact_submissions")
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  author      String
+  category    String
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("blog_posts")
+}
