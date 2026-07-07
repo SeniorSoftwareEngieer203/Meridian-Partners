@@ -38,7 +38,6 @@ export default function CareersPage() {
         image={siteImages.careerimage}
         imageAlt="Foreign developers team at Meridian Partners"
       />
-
       <section className="section">
         <Container>
           <div className="mx-auto grid max-w-4xl gap-8">
